@@ -1,0 +1,13 @@
+https://stackoverflow.com/questions/57704337/running-create-rmi-keystore-bat-file-in-jmeter-bin-folder-not-working
+
+Добавьте следующую строку в файл user.properties (находится в папке «bin» вашей установки JMeter)
+
+server.rmi.ssl.disable=true
+
+
+
+jmeter-server -Djava.rmi.server.hostname=127.0.0.1 -Dserver.rmi.port=60001
+jmeter-server -Djava.rmi.server.hostname=127.0.0.1 -Dserver.rmi.port=60002
+
+jmeter -Jremote_hosts=127.0.0.1:60001 -r -n -t test.jmx
+jmeter -Jremote_hosts=127.0.0.1:60001,127.0.0.1:60002 -r -n -t test.jmx
