@@ -1,0 +1,39 @@
+./jmeter -n -t $test_name.jmx -Jserver.rmi.ssl.disable=true -r -Jremote_hosts=$remote_hosts
+
+-Dserver.rmi.localport=50000 
+-Dserver_port=1099 
+-Jserver.rmi.ssl.disable=true
+
+
+
+jmeter-server -Djava.rmi.server.hostname=127.0.0.1 -Dserver.rmi.port=60001
+jmeter -Jremote_hosts=127.0.0.1:60001 -r -n -t test.jmx
+
+
+
+
+
+jmeter-server -Djava.rmi.server.hostname=127.0.0.1 -Dserver.rmi.localport=50000 -Dserver_port=1099 -Jserver.rmi.ssl.disable=true
+
+-Dserver.rmi.localport=50000 
+-Dserver_port=1099 
+-Jserver.rmi.ssl.disable=true
+
+
+
+jmeter -Jremote_hosts=192.168.172.128:50000 -r -n -t test.jmx
+
+
+
+jmeter-server -Djava.rmi.server.hostname=192.168.172.128 -Dserver.rmi.localport=50000 -Dserver.rmi.port=60001 -Jserver.rmi.ssl.disable=true
+jmeter -Jremote_hosts=192.168.172.128:60001 -r -n -t test.jmx
+
+
+jmeter -n -t test.jmx -R 192.168.172.128 -Djava.rmi.server.hostname=192.168.1.166 -Dclient.rmi.localport=60000
+
+-----
+
+jmeter-server -Djava.rmi.server.hostname=192.168.172.128 -Dserver.rmi.localport=50000 -Dserver_port=1099 -Jserver.rmi.ssl.disable=true
+
+jmeter -n -t test.jmx -R 192.168.172.128 -Djava.rmi.server.hostname=192.168.1.166 -Dclient.rmi.localport=60000
+jmeter -n -t D:\WORK\alrora\AnyExample\jmeter\distributed\test.jmx -R 192.168.172.128 -Djava.rmi.server.hostname=192.168.1.166 -Dclient.rmi.localport=60000 -l log.jtl
